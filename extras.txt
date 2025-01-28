@@ -1,0 +1,3 @@
+TOKEN=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
+(en porwershell) $env:GH_TOKEN="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"
+npm run publish

@@ -1,18 +1,48 @@
 {
   "name": "stormpanel-app",
   "version": "1.0.0",
-  "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder --win",
+    "publish": "electron-builder --win --publish always"
   },
+  "build": {
+    "appId": "com.stormgamesstudios.stormpanelapp",
+    "productName": "StormPanel App",
+    "win": {
+      "target": "nsis",
+      "publish": [
+        {
+          "provider": "github",
+          "owner": "acierto-incomodo",
+          "repo": "StormPanel-App"
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/acierto-incomodo/electron-updater-example.git"
+  },
+  "keywords": [],
   "author": "StormGamesStudios",
-  "license": "Apache-2.0",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/acierto-incomodo/electron-updater-example/issues"
+  },
+  "homepage": "https://github.com/acierto-incomodo/electron-updater-example#readme",
+  "description": "",
+  "dependencies": {
+    "electron-updater": "^6.3.9"
+  },
   "devDependencies": {
     "electron": "^34.0.1",
     "electron-builder": "^25.1.8"
-  },
-  "dependencies": {
-    "electron-updater": "^6.3.9"
   }
 }
