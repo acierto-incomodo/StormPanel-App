@@ -1,6 +1,6 @@
 {
   "name": "stormpanel-app",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -23,7 +23,7 @@
     },
     "nsis": {
       "oneClick": false,
-      "allowToChangeInstallationDirectory": true
+      "allowToChangeInstallationDirectory": false
     }
   },
   "repository": {
@@ -32,7 +32,7 @@
   },
   "keywords": [],
   "author": "StormGamesStudios",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/acierto-incomodo/StormPanel-App/issues"
   },

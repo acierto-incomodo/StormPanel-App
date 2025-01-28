@@ -130,3 +130,4 @@ dist
 .pnp.*
 StormPanel-App/
 electron-updater-example/
+extras.txt
