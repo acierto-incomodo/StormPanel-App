@@ -1,6 +1,6 @@
 {
   "name": "stormpanel-app",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -28,7 +28,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/acierto-incomodo/electron-updater-example.git"
+    "url": "https://github.com/acierto-incomodo/StormPanel-App.git"
   },
   "keywords": [],
   "author": "StormGamesStudios",
