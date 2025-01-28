@@ -1,3 +1,8 @@
 TOKEN=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
-(en porwershell) $env:GH_TOKEN="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"
+1.- Opción (en porwershell)
+$env:GH_TOKEN="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"
 npm run publish
+
+2.- Opción (en porwershell)
+$env:GH_TOKEN="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"
+npx electron-builder --win --publish always
