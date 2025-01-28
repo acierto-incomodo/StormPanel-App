@@ -1,6 +1,6 @@
 {
   "name": "stormpanel-app",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -28,15 +28,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/acierto-incomodo/electron-updater-example.git"
+    "url": "https://github.com/acierto-incomodo/StormPanel-App.git"
   },
   "keywords": [],
   "author": "StormGamesStudios",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/acierto-incomodo/electron-updater-example/issues"
+    "url": "https://github.com/acierto-incomodo/StormPanel-App/issues"
   },
-  "homepage": "https://github.com/acierto-incomodo/electron-updater-example#readme",
+  "homepage": "https://github.com/acierto-incomodo/StormPanel-App#readme",
   "description": "",
   "dependencies": {
     "electron-updater": "^6.3.9"
