@@ -57,6 +57,12 @@ function configurarMenu() {
                             mainWindow.loadURL("https://stats.uptimerobot.com/Kj5fTWCONH");
                         });
                     }
+                },
+                {
+                    label: "Versión",
+                    click: () => {
+                        mainWindow.loadFile('404.html'); // Cargar versión.html al hacer clic en "Versión"
+                    }
                 }
             ]
         },
@@ -149,6 +155,43 @@ app.on("ready", () => {
     });
 
     mainWindow.loadFile("index.html"); // Cargar index.html al iniciar
+
+    // Crear menú contextual
+    const contextMenu = Menu.buildFromTemplate([
+        {
+            label: "Copiar",
+            role: "copy"
+        },
+        {
+            label: "Pegar",
+            role: "paste"
+        },
+        { type: "separator" },
+        {
+            label: "Recargar",
+            click: () => {
+                mainWindow.reload();
+            }
+        },
+        {
+            label: "Recargar (Forzoso)",
+            click: () => {
+                mainWindow.webContents.reloadIgnoringCache(); // Recargar sin caché
+            }
+        },
+        { type: "separator" },
+        {
+            label: "Abrir DevTools",
+            click: () => {
+                mainWindow.webContents.openDevTools();
+            }
+        }
+    ]);
+
+    // Detectar click derecho y mostrar el menú
+    mainWindow.webContents.on("context-menu", (event, params) => {
+        contextMenu.popup(mainWindow, params.x, params.y);
+    });
 
     // Configurar el menú
     configurarMenu();

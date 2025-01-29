@@ -12,18 +12,25 @@
     "appId": "com.stormgamesstudios.stormpanelapp",
     "productName": "StormPanel App",
     "win": {
-      "target": "nsis",
+      "target": ["nsis", "zip"],
       "publish": [
         {
           "provider": "github",
           "owner": "acierto-incomodo",
           "repo": "StormPanel-App"
         }
-      ]
+      ],
+      "publisherName": "StormGamesStudios"
     },
     "nsis": {
       "oneClick": false,
-      "allowToChangeInstallationDirectory": false
+      "allowToChangeInstallationDirectory": false,
+      "license": "LICENSE.txt",
+      "shortcutName": "StormPanel"
+    },
+    "linux": {
+      "target": ["AppImage", "deb", "rpm"],
+      "category": "Utility"
     }
   },
   "repository": {

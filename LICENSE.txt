@@ -1,0 +1,61 @@
+StormGamesStudios License
+
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   1. Definición.
+
+        "Licencia" significa los términos y condiciones de uso, reproducción
+        y distribución según se define en las Secciones 1 a 9 de este documento.
+
+        "Licenciante" significa el propietario de los derechos de autor o la entidad autorizada por
+        el propietario de los derechos de autor que otorga la Licencia.
+
+        "Entidad legal" significa la unión de la entidad actuante y todas
+        las demás entidades que controlan, son controladas por o están bajo control común con esa entidad. A los efectos de esta definición,
+        "control" significa (i) el poder, directo o indirecto, de causar la
+        dirección o gestión de dicha entidad, ya sea por contrato o de otro modo, o (ii) la propiedad del cincuenta por ciento (50 %) o más de las
+        acciones en circulación, o (iii) la propiedad beneficiosa de dicha entidad.
+
+        "Usted" (o "Su") significa una persona o entidad legal
+        que ejerce los permisos otorgados por esta Licencia.
+
+        "Fuente" significa la forma preferida para realizar modificaciones,
+        incluyendo, entre otras, el código fuente del software, la documentación
+        y los archivos de configuración.
+
+        Por "forma de objeto" se entenderá cualquier forma resultante de la transformación mecánica
+        o la traducción de una forma de origen, incluidos, entre otros, el código de objeto compilado, la
+        documentación generada y las conversiones a otros tipos de medios.
+
+        "Obra" se entenderá la obra de autor, ya sea en forma de fuente o de objeto, puesta a disposición en virtud de la Licencia, tal como se indica en un
+        aviso de derechos de autor que se incluye o se adjunta a la obra
+        (se proporciona un ejemplo en el Apéndice a continuación).
+
+        "Obras derivadas" significará cualquier obra, ya sea en forma de fuente u objeto,
+        que se base en (o derive de) la Obra y para la cual las
+        revisiones editoriales, anotaciones, elaboraciones u otras modificaciones
+        representan, en su totalidad, una obra original de autoría. Para los fines
+        de esta Licencia, las Obras derivadas no incluirán obras que permanezcan
+        separables de, o simplemente se vinculen (o vinculen por nombre) a las interfaces de,
+        la Obra y las Obras derivadas de la misma.
+
+        "Contribución" significará cualquier obra de autoría, incluida
+        la versión original de la Obra y cualquier modificación o adición
+        a esa Obra o las Obras derivadas de la misma, que se envíe intencionalmente
+        al Licenciante para su inclusión en la Obra por el propietario de los derechos de autor
+        o por una persona o entidad legal autorizada para enviar en nombre del propietario de los derechos de autor. A los efectos de esta definición, "enviado"
+        significa cualquier forma de comunicación electrónica, verbal o escrita enviada
+        al Licenciante o sus representantes, incluyendo, entre otros,
+        comunicaciones en listas de correo electrónico, sistemas de control de código fuente y
+        sistemas de seguimiento de problemas que son administrados por, o en nombre de, el Licenciante con el propósito de discutir y mejorar la Obra, pero
+        excluyendo la comunicación que está marcada visiblemente o designada de otra manera por escrito por el propietario de los derechos de autor como "No es una Contribución".
+
+        "Contribuidor" significará el Licenciante y cualquier individuo o Entidad Legal
+        en nombre de quien el Licenciante haya recibido una Contribución y posteriormente incorporada a la Obra.
+
+   END OF TERMS AND CONDITIONS
+
+   Copyright [yyyy] [name of copyright owner]
