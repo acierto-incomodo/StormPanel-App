@@ -63,10 +63,16 @@ app.on("ready", () => {
     mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
-        webPreferences: { nodeIntegration: true }
+        webPreferences: { 
+            nodeIntegration: true,
+            contextIsolation: false
+        }
     });
 
     mainWindow.loadFile("index.html"); // Cargar index.html al iniciar
+
+    // Configurar el menú
+    configurarMenu();
 
     // Comprobar actualizaciones al iniciar
     autoUpdater.checkForUpdatesAndNotify();
@@ -94,9 +100,6 @@ app.on("ready", () => {
     autoUpdater.on("error", (error) => {
         console.error("Error en la actualización:", error);
     });
-
-    // Configurar el menú
-    configurarMenu();
 });
 
 // Manejar solicitud de versión

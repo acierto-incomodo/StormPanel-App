@@ -1,6 +1,6 @@
 {
   "name": "stormpanel-app",
-  "version": "1.0.5",
+  "version": "1.0.4",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -23,7 +23,7 @@
     },
     "nsis": {
       "oneClick": false,
-      "allowToChangeInstallationDirectory": true
+      "allowToChangeInstallationDirectory": false
     }
   },
   "repository": {
@@ -33,6 +33,10 @@
   "keywords": [],
   "author": "StormGamesStudios",
   "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/acierto-incomodo/StormPanel-App/issues"
+  },
+  "homepage": "https://github.com/acierto-incomodo/StormPanel-App#readme",
   "description": "",
   "dependencies": {
     "electron-updater": "^6.3.9"
