@@ -1,10 +1,13 @@
-const { app, BrowserWindow, dialog, ipcMain, Menu } = require("electron");
+const { app, BrowserWindow, dialog, ipcMain, Menu, session } = require("electron");
 const { autoUpdater } = require("electron-updater");
+const path = require("path");
 
 let mainWindow;
 
 // Función para configurar el menú
 function configurarMenu() {
+    const { app, BrowserWindow } = require("electron");
+
     const menuTemplate = [
         {
             label: "Inicio",
@@ -24,7 +27,9 @@ function configurarMenu() {
                 {
                     label: "Status",
                     click: () => {
-                        mainWindow.loadURL("https://stats.uptimerobot.com/Kj5fTWCONH"); // Cargar URL del status
+                        session.defaultSession.clearCache().then(() => {
+                            mainWindow.loadURL("https://stats.uptimerobot.com/Kj5fTWCONH");
+                        });
                     }
                 }
             ]
@@ -51,6 +56,46 @@ function configurarMenu() {
                     }
                 }
             ]
+        },
+        {
+            label: "Extras",
+            submenu: [
+                {
+                    label: "Mostrar Consola",
+                    accelerator: "F12",
+                    click: () => {
+                        mainWindow.webContents.openDevTools(); // Abrir herramientas de desarrollo
+                    }
+                },
+                {
+                    label: "Recargar Página",
+                    accelerator: "F5",
+                    click: () => {
+                        mainWindow.reload(); // Recargar la página
+                    }
+                },
+                {
+                    label: "Recargar (Forzoso)",
+                    accelerator: "Ctrl+F5",
+                    click: () => {
+                        mainWindow.webContents.reloadIgnoringCache(); // Recargar sin caché
+                    }
+                },
+                {
+                    label: "Cerrar Aplicación",
+                    accelerator: "Alt+F4",
+                    click: () => {
+                        app.quit(); // Cerrar la aplicación
+                    }
+                },
+                {
+                    label: "Reiniciar Aplicación",
+                    click: () => {
+                        app.relaunch(); // Reiniciar la aplicación
+                        app.quit();
+                    }
+                }
+            ]
         }
     ];
 
@@ -65,7 +110,9 @@ app.on("ready", () => {
         height: 600,
         webPreferences: { 
             nodeIntegration: true,
-            contextIsolation: false
+            contextIsolation: true,
+            preload: path.join(__dirname, "preload.js"),
+            enableRemoteModule: false
         }
     });
 
