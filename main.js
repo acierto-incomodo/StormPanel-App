@@ -2,6 +2,26 @@ const { app, BrowserWindow, dialog, ipcMain, Menu, session } = require("electron
 const { autoUpdater } = require("electron-updater");
 const path = require("path");
 
+// Método para comprobar actualizaciones
+function comprobarActualizaciones() {
+    autoUpdater.checkForUpdates()
+        .then((info) => {
+            // Si no hay actualizaciones disponibles
+            if (info.updateInfo && !info.updateInfo.version) {
+                dialog.showMessageBox({
+                    type: 'info',
+                    title: 'No hay actualizaciones',
+                    message: 'No hay actualizaciones disponibles en este momento.',
+                    buttons: ['Aceptar']
+                });
+            }
+        })
+        .catch((err) => {
+            // Si ocurre un error al comprobar las actualizaciones
+            dialog.showErrorBox('Error al comprobar actualizaciones', 'Hubo un error al comprobar si hay actualizaciones: ' + err.message);
+        });
+}
+
 let mainWindow;
 
 // Función para configurar el menú
@@ -19,10 +39,16 @@ function configurarMenu() {
             label: "Páginas",
             submenu: [
                 {
-                    label: "Panel",
+                    label: "StormPanel Online",
                     click: () => {
                         mainWindow.loadURL("http://67.218.236.213:23333"); // Cargar URL del panel
                     }
+                },
+                {
+                    label: "StormPanel Local",
+                    click: () => {
+                        checkAndLoadURL(mainWindow, "http://127.0.0.1:23333", "404.html");
+                    },
                 },
                 {
                     label: "Status",
@@ -94,6 +120,12 @@ function configurarMenu() {
                         app.relaunch(); // Reiniciar la aplicación
                         app.quit();
                     }
+                },
+                {
+                    label: "Comprobar Actualizaciones", // Nuevo botón para actualizar
+                    click: () => {
+                        comprobarActualizaciones();
+                    }
                 }
             ]
         }
@@ -153,3 +185,16 @@ app.on("ready", () => {
 ipcMain.handle("get-app-version", () => {
     return app.getVersion();
 });
+
+// Función para verificar si la URL está accesible
+function checkAndLoadURL(window, url, fallback) {
+    http.get(url, (res) => {
+        if (res.statusCode === 200) {
+            window.loadURL(url); // Si la URL es accesible, cargarla
+        } else {
+            window.loadFile(fallback); // Si no, cargar la página 404.html
+        }
+    }).on('error', (err) => {
+        window.loadFile(fallback); // Si ocurre un error, cargar 404.html
+    });
+}
