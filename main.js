@@ -91,7 +91,7 @@ app.on("ready", () => {
             type: "info",
             title: "Actualización Lista",
             message: "La actualización se descargó. ¿Quieres reiniciar para aplicar la actualización?",
-            buttons: ["Reiniciar", "Más tarde"]
+            buttons: ["Reiniciar"]
         }).then(result => {
             if (result.response === 0) autoUpdater.quitAndInstall();
         });
