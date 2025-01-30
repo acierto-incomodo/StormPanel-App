@@ -1,6 +1,6 @@
 {
   "name": "stormpanel-app",
-  "version": "1.0.8",
+  "version": "1.0.7",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -12,7 +12,7 @@
     "appId": "com.stormgamesstudios.stormpanelapp",
     "productName": "StormPanel App",
     "win": {
-      "target": ["nsis", "zip"],
+      "target": ["nsis"],
       "publish": [
         {
           "provider": "github",
