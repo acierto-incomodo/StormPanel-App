@@ -114,12 +114,6 @@ function configurarMenu() {
                         app.relaunch(); // Reiniciar la aplicación
                         app.quit();
                     }
-                },
-                {
-                    label: "Comprobar Actualizaciones", // Nuevo botón para actualizar
-                    click: () => {
-                        comprobarActualizaciones();
-                    }
                 }
             ]
         }
