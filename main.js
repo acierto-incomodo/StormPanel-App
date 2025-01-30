@@ -45,12 +45,6 @@ function configurarMenu() {
                     }
                 },
                 {
-                    label: "StormPanel Local",
-                    click: () => {
-                        checkAndLoadURL(mainWindow, "http://127.0.0.1:23333", "404.html");
-                    },
-                },
-                {
                     label: "Status",
                     click: () => {
                         session.defaultSession.clearCache().then(() => {
@@ -61,7 +55,7 @@ function configurarMenu() {
                 {
                     label: "Versión",
                     click: () => {
-                        mainWindow.loadFile('404.html'); // Cargar versión.html al hacer clic en "Versión"
+                        mainWindow.loadFile('version.html'); // Cargar versión.html al hacer clic en "Versión"
                     }
                 }
             ]
@@ -70,15 +64,9 @@ function configurarMenu() {
             label: "Ayuda",
             submenu: [
                 {
-                    label: "Documentación",
-                    click: () => {
-                        mainWindow.loadFile('404.html'); // Abrir la documentación en el navegador
-                    }
-                },
-                {
                     label: "Soporte",
                     click: () => {
-                        mainWindow.loadFile('404.html'); // Abrir soporte en el navegador
+                        mainWindow.loadFile('soporte.html'); // Abrir soporte en el navegador
                     }
                 },
                 {
@@ -146,6 +134,8 @@ app.on("ready", () => {
     mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
+        minWidth: 800,
+        minHeight: 600,
         webPreferences: { 
             nodeIntegration: true,
             contextIsolation: true,
@@ -155,6 +145,7 @@ app.on("ready", () => {
     });
 
     mainWindow.loadFile("index.html"); // Cargar index.html al iniciar
+    mainWindow.maximize(); // Maximizar la ventana
 
     // Crear menú contextual
     const contextMenu = Menu.buildFromTemplate([
