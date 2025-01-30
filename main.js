@@ -84,7 +84,7 @@ function configurarMenu() {
                 {
                     label: "Acerca de",
                     click: () => {
-                        mainWindow.loadFile('404.html'); // Cargar about.html al hacer clic en "Acerca de"
+                        mainWindow.loadFile('acerca.html'); // Cargar about.html al hacer clic en "Acerca de"
                     }
                 }
             ]

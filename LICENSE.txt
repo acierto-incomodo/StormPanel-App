@@ -79,5 +79,7 @@ TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
    This License shall be governed by the laws of the jurisdiction in which the Licensor
    is organized.
 
-Copyright © StormGamesStudios. All rights reserved.
+END OF TERMS AND CONDITIONS
+
+Copyright (c) StormGamesStudios. All rights reserved.
 
