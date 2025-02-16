@@ -189,7 +189,7 @@ app.on("ready", () => {
         dialog.showMessageBox({
             type: "info",
             title: "Actualización Disponible",
-            message: "Hay una nueva versión disponible. Se descargará en segundo plano."
+            message: "Hay una nueva versión disponible. Se descargará en segundo plano. Si no se descarga la versión visite https://github.com/acierto-incomodo/StormPanel-App/releases/download/v1.0.0/StormPanel-App-Setup-1.0.0.exe y descarge e instale el archivo."
         });
     });
 
