@@ -61,7 +61,7 @@ function configurarMenu() {
                 {
                     label: "MyJonCraft SGS Web",
                     click: () => {
-                        mainWindow.loadFile('https://myjoncraft-sgs-web.vercel.app/modpack');
+                        mainWindow.loadFile('https://myjoncraft-sgs-web.vercel.app');
                     }
                 }
             ]
