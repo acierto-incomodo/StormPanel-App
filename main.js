@@ -53,15 +53,15 @@ function configurarMenu() {
                     }
                 },
                 {
-                    label: "MyJonCraft SGS Web",
-                    click: () => {
-                        mainWindow.loadFile('https://myjoncraft-sgs-web.vercel.app/modpack');
-                    }
-                },
-                {
                     label: "Versión",
                     click: () => {
                         mainWindow.loadFile('version.html'); // Cargar versión.html al hacer clic en "Versión"
+                    }
+                },
+                {
+                    label: "MyJonCraft SGS Web",
+                    click: () => {
+                        mainWindow.loadFile('https://myjoncraft-sgs-web.vercel.app/modpack');
                     }
                 }
             ]
@@ -79,6 +79,12 @@ function configurarMenu() {
                     label: "Acerca de",
                     click: () => {
                         mainWindow.loadFile('acerca.html'); // Cargar about.html al hacer clic en "Acerca de"
+                    }
+                },
+                {
+                    label: "Documentación",
+                    click: () => {
+                        mainWindow.loadFile('documentacion.html'); // Cargar about.html al hacer clic en "Acerca de"
                     }
                 },
                 {
@@ -208,9 +214,16 @@ app.on("ready", () => {
         dialog.showMessageBox({
             type: "info",
             title: "Actualización Disponible",
-            message: "Hay una nueva versión disponible. Se descargará en segundo plano. Si no se descarga la versión visite https://github.com/acierto-incomodo/StormPanel-App/releases/download/v1.0.0/StormPanel-App-Setup-1.0.0.exe y descarge e instale el archivo."
+            message: "Hay una nueva versión disponible. Se descargará en segundo plano. Si no se descarga automáticamente, puedes descargarla manualmente.",
+            buttons: ["Descarga manual", "OK"],
+            defaultId: 1, // Preselecciona el botón "OK"
+            cancelId: 1 // Si el usuario cierra el cuadro, se elige "OK"
+        }).then(result => {
+            if (result.response === 0) { // Si elige "Descarga manual"
+                shell.openExternal("https://github.com/acierto-incomodo/StormPanel-App/releases/latest");
+            }
         });
-    });
+    });    
 
     autoUpdater.on("update-downloaded", () => {
         dialog.showMessageBox({
