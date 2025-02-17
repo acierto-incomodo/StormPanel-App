@@ -53,6 +53,12 @@ function configurarMenu() {
                     }
                 },
                 {
+                    label: "MyJonCraft SGS Web",
+                    click: () => {
+                        mainWindow.loadFile('https://myjoncraft-sgs-web.vercel.app/modpack');
+                    }
+                },
+                {
                     label: "Versión",
                     click: () => {
                         mainWindow.loadFile('version.html'); // Cargar versión.html al hacer clic en "Versión"
@@ -73,6 +79,12 @@ function configurarMenu() {
                     label: "Acerca de",
                     click: () => {
                         mainWindow.loadFile('acerca.html'); // Cargar about.html al hacer clic en "Acerca de"
+                    }
+                },
+                {
+                    label: "Error de Actualización",
+                    click: () => {
+                        mainWindow.loadFile('error_actualizacion.html');
                     }
                 }
             ]
@@ -114,6 +126,12 @@ function configurarMenu() {
                         app.relaunch(); // Reiniciar la aplicación
                         app.quit();
                     }
+                },
+                {
+                    label: "Comprobar Actualizaciones",
+                    click: () => {
+                        comprobarActualizaciones(); // Comprobar actualizaciones
+                    }
                 }
             ]
         }
@@ -140,6 +158,7 @@ app.on("ready", () => {
 
     mainWindow.loadFile("index.html"); // Cargar index.html al iniciar
     mainWindow.maximize(); // Maximizar la ventana
+    mainWindow.setIcon(path.join(__dirname, "icon.png")); // Establecer el icono de la ventana
 
     // Crear menú contextual
     const contextMenu = Menu.buildFromTemplate([
