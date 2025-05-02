@@ -1,2 +1,2 @@
-1.- Subir archivo .exe y latest.yml a github
+1.- Subir archivo .exe, .exe.blockmap y latest.yml a github
 2.- Subir con github desktop

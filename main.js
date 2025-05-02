@@ -41,7 +41,7 @@ function configurarMenu() {
                 {
                     label: "StormPanel Online",
                     click: () => {
-                        mainWindow.loadURL("http://67.218.236.213:23333"); // Cargar URL del panel
+                        mainWindow.loadURL("http://67.218.238.79:23333"); // Cargar URL del panel
                     }
                 },
                 {
@@ -61,7 +61,13 @@ function configurarMenu() {
                 {
                     label: "MyJonCraft SGS Web",
                     click: () => {
-                        mainWindow.loadFile('https://myjoncraft-sgs-web.vercel.app');
+                        mainWindow.loadURL('https://myjoncraft-sgs-web.vercel.app');
+                    }
+                },
+                {
+                    label: "StormGamesStudios",
+                    click: () => {
+                        mainWindow.loadURL('https://stormgamesstudios.vercel.app');
                     }
                 }
             ]
