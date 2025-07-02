@@ -41,7 +41,7 @@ function configurarMenu() {
                 {
                     label: "StormPanel Online",
                     click: () => {
-                        mainWindow.loadURL("http://67.218.238.79:23333"); // Cargar URL del panel
+                        mainWindow.loadURL("http://stormpanel.mooo.com:23333"); // Cargar URL del panel
                     }
                 },
                 {
