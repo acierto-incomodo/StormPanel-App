@@ -1,266 +1,185 @@
-const { app, BrowserWindow, dialog, ipcMain, Menu, session } = require("electron");
+const {
+  app,
+  BrowserWindow,
+  dialog,
+  ipcMain,
+  Menu,
+  session,
+  shell,
+} = require("electron");
 const { autoUpdater } = require("electron-updater");
 const path = require("path");
 
-// Método para comprobar actualizaciones
-function comprobarActualizaciones() {
-    autoUpdater.checkForUpdates()
-        .then((info) => {
-            // Si no hay actualizaciones disponibles
-            if (info.updateInfo && !info.updateInfo.version) {
-                dialog.showMessageBox({
-                    type: 'info',
-                    title: 'No hay actualizaciones',
-                    message: 'No hay actualizaciones disponibles en este momento.',
-                    buttons: ['Aceptar']
-                });
-            }
-        })
-        .catch((err) => {
-            // Si ocurre un error al comprobar las actualizaciones
-            dialog.showErrorBox('Error al comprobar actualizaciones', 'Hubo un error al comprobar si hay actualizaciones: ' + err.message);
-        });
-}
-
 let mainWindow;
+
+// ⚙️ CONFIGURACIÓN DEL AUTO-UPDATER
+autoUpdater.autoDownload = true; // descargar automáticamente
+autoUpdater.autoInstallOnAppQuit = true; // instalar al cerrar
+
+// Método para comprobar actualizaciones manualmente
+function comprobarActualizaciones() {
+  autoUpdater.checkForUpdates().catch((err) => {
+    console.error("Error comprobando actualizaciones:", err);
+  });
+}
 
 // Función para configurar el menú
 function configurarMenu() {
-    const { app, BrowserWindow } = require("electron");
+  const menuTemplate = [
+    {
+      label: "Inicio",
+      click: () => mainWindow.loadFile("index.html"),
+    },
+    {
+      label: "Páginas",
+      submenu: [
+        {
+          label: "StormPanel Online",
+          click: () => mainWindow.loadURL("http://myjoncraft.mooo.com:23333"),
+        },
+        {
+          label: "Status",
+          click: () => {
+            session.defaultSession.clearCache().then(() => {
+              mainWindow.loadURL("https://stats.uptimerobot.com/Kj5fTWCONH");
+            });
+          },
+        },
+        { label: "Versión", click: () => mainWindow.loadFile("version.html") },
+        {
+          label: "MyJonCraft SGS Web",
+          click: () =>
+            mainWindow.loadURL("https://myjoncraft-sgs-web.vercel.app"),
+        },
+        {
+          label: "StormGamesStudios",
+          click: () =>
+            mainWindow.loadURL("https://stormgamesstudios.vercel.app"),
+        },
+      ],
+    },
+    {
+      label: "Ayuda",
+      submenu: [
+        { label: "Soporte", click: () => mainWindow.loadFile("soporte.html") },
+        { label: "Acerca de", click: () => mainWindow.loadFile("acerca.html") },
+        {
+          label: "Documentación",
+          click: () => mainWindow.loadFile("documentacion.html"),
+        },
+        {
+          label: "Error de Actualización",
+          click: () => mainWindow.loadFile("error_actualizacion.html"),
+        },
+      ],
+    },
+    {
+      label: "Extras",
+      submenu: [
+        {
+          label: "Mostrar Consola",
+          accelerator: "F12",
+          click: () => mainWindow.webContents.openDevTools(),
+        },
+        {
+          label: "Recargar Página",
+          accelerator: "F5",
+          click: () => mainWindow.reload(),
+        },
+        {
+          label: "Recargar (Forzoso)",
+          accelerator: "Ctrl+F5",
+          click: () => mainWindow.webContents.reloadIgnoringCache(),
+        },
+        {
+          label: "Cerrar Aplicación",
+          accelerator: "Alt+F4",
+          click: () => app.quit(),
+        },
+        {
+          label: "Reiniciar Aplicación",
+          click: () => {
+            app.relaunch();
+            app.quit();
+          },
+        },
+        {
+          label: "Comprobar Actualizaciones",
+          click: () => comprobarActualizaciones(),
+        },
+      ],
+    },
+  ];
 
-    const menuTemplate = [
-        {
-            label: "Inicio",
-            click: () => {
-                mainWindow.loadFile('index.html'); // Cargar index.html al hacer clic en "Inicio"
-            }
-        },
-        {
-            label: "Páginas",
-            submenu: [
-                {
-                    label: "StormPanel Online",
-                    click: () => {
-                        mainWindow.loadURL("http://stormpanel.mooo.com:23333"); // Cargar URL del panel
-                    }
-                },
-                {
-                    label: "Status",
-                    click: () => {
-                        session.defaultSession.clearCache().then(() => {
-                            mainWindow.loadURL("https://stats.uptimerobot.com/Kj5fTWCONH");
-                        });
-                    }
-                },
-                {
-                    label: "Versión",
-                    click: () => {
-                        mainWindow.loadFile('version.html'); // Cargar versión.html al hacer clic en "Versión"
-                    }
-                },
-                {
-                    label: "MyJonCraft SGS Web",
-                    click: () => {
-                        mainWindow.loadURL('https://myjoncraft-sgs-web.vercel.app');
-                    }
-                },
-                {
-                    label: "StormGamesStudios",
-                    click: () => {
-                        mainWindow.loadURL('https://stormgamesstudios.vercel.app');
-                    }
-                }
-            ]
-        },
-        {
-            label: "Ayuda",
-            submenu: [
-                {
-                    label: "Soporte",
-                    click: () => {
-                        mainWindow.loadFile('soporte.html'); // Abrir soporte en el navegador
-                    }
-                },
-                {
-                    label: "Acerca de",
-                    click: () => {
-                        mainWindow.loadFile('acerca.html'); // Cargar about.html al hacer clic en "Acerca de"
-                    }
-                },
-                {
-                    label: "Documentación",
-                    click: () => {
-                        mainWindow.loadFile('documentacion.html'); // Cargar about.html al hacer clic en "Acerca de"
-                    }
-                },
-                {
-                    label: "Error de Actualización",
-                    click: () => {
-                        mainWindow.loadFile('error_actualizacion.html');
-                    }
-                }
-            ]
-        },
-        {
-            label: "Extras",
-            submenu: [
-                {
-                    label: "Mostrar Consola",
-                    accelerator: "F12",
-                    click: () => {
-                        mainWindow.webContents.openDevTools(); // Abrir herramientas de desarrollo
-                    }
-                },
-                {
-                    label: "Recargar Página",
-                    accelerator: "F5",
-                    click: () => {
-                        mainWindow.reload(); // Recargar la página
-                    }
-                },
-                {
-                    label: "Recargar (Forzoso)",
-                    accelerator: "Ctrl+F5",
-                    click: () => {
-                        mainWindow.webContents.reloadIgnoringCache(); // Recargar sin caché
-                    }
-                },
-                {
-                    label: "Cerrar Aplicación",
-                    accelerator: "Alt+F4",
-                    click: () => {
-                        app.quit(); // Cerrar la aplicación
-                    }
-                },
-                {
-                    label: "Reiniciar Aplicación",
-                    click: () => {
-                        app.relaunch(); // Reiniciar la aplicación
-                        app.quit();
-                    }
-                },
-                {
-                    label: "Comprobar Actualizaciones",
-                    click: () => {
-                        comprobarActualizaciones(); // Comprobar actualizaciones
-                    }
-                }
-            ]
-        }
-    ];
-
-    const menu = Menu.buildFromTemplate(menuTemplate);
-    Menu.setApplicationMenu(menu); // Establecer el menú como el menú de la aplicación
+  Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate));
 }
 
-app.on("ready", () => {
-    // Crear la ventana principal
-    mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
-        minWidth: 800,
-        minHeight: 600,
-        webPreferences: { 
-            nodeIntegration: true,
-            contextIsolation: true,
-            preload: path.join(__dirname, "preload.js"),
-            enableRemoteModule: false
-        }
-    });
+app.whenReady().then(() => {
+  mainWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    minWidth: 800,
+    minHeight: 600,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: true,
+      preload: path.join(__dirname, "preload.js"),
+      enableRemoteModule: false,
+    },
+  });
 
-    mainWindow.loadFile("index.html"); // Cargar index.html al iniciar
-    mainWindow.maximize(); // Maximizar la ventana
-    mainWindow.setIcon(path.join(__dirname, "icon.png")); // Establecer el icono de la ventana
+  mainWindow.loadFile("index.html");
+  mainWindow.maximize();
+  mainWindow.setIcon(path.join(__dirname, "icon.png"));
 
-    // Crear menú contextual
-    const contextMenu = Menu.buildFromTemplate([
-        {
-            label: "Copiar",
-            role: "copy"
-        },
-        {
-            label: "Pegar",
-            role: "paste"
-        },
-        { type: "separator" },
-        {
-            label: "Recargar",
-            click: () => {
-                mainWindow.reload();
-            }
-        },
-        {
-            label: "Recargar (Forzoso)",
-            click: () => {
-                mainWindow.webContents.reloadIgnoringCache(); // Recargar sin caché
-            }
-        },
-        { type: "separator" },
-        {
-            label: "Abrir DevTools",
-            click: () => {
-                mainWindow.webContents.openDevTools();
-            }
-        }
-    ]);
+  // Menú contextual
+  const contextMenu = Menu.buildFromTemplate([
+    { label: "Copiar", role: "copy" },
+    { label: "Pegar", role: "paste" },
+    { type: "separator" },
+    { label: "Recargar", click: () => mainWindow.reload() },
+    {
+      label: "Recargar (Forzoso)",
+      click: () => mainWindow.webContents.reloadIgnoringCache(),
+    },
+    { type: "separator" },
+    {
+      label: "Abrir DevTools",
+      click: () => mainWindow.webContents.openDevTools(),
+    },
+  ]);
 
-    // Detectar click derecho y mostrar el menú
-    mainWindow.webContents.on("context-menu", (event, params) => {
-        contextMenu.popup(mainWindow, params.x, params.y);
-    });
+  mainWindow.webContents.on("context-menu", (event, params) => {
+    contextMenu.popup(mainWindow, params.x, params.y);
+  });
 
-    // Configurar el menú
-    configurarMenu();
+  configurarMenu();
 
-    // Comprobar actualizaciones al iniciar
-    autoUpdater.checkForUpdatesAndNotify();
-
-    // Eventos del autoUpdater
-    autoUpdater.on("update-available", () => {
-        dialog.showMessageBox({
-            type: "info",
-            title: "Actualización Disponible",
-            message: "Hay una nueva versión disponible. Se descargará en segundo plano. Si no se descarga automáticamente, puedes descargarla manualmente.",
-            buttons: ["Descarga manual", "OK"],
-            defaultId: 1, // Preselecciona el botón "OK"
-            cancelId: 1 // Si el usuario cierra el cuadro, se elige "OK"
-        }).then(result => {
-            if (result.response === 0) { // Si elige "Descarga manual"
-                shell.openExternal("https://github.com/acierto-incomodo/StormPanel-App/releases/latest");
-            }
-        });
-    });    
-
-    autoUpdater.on("update-downloaded", () => {
-        dialog.showMessageBox({
-            type: "info",
-            title: "Actualización Lista",
-            message: "La actualización se descargó. ¿Quieres reiniciar para aplicar la actualización?",
-            buttons: ["Reiniciar"]
-        }).then(result => {
-            if (result.response === 0) autoUpdater.quitAndInstall();
-        });
-    });
-
-    autoUpdater.on("error", (error) => {
-        console.error("Error en la actualización:", error);
-    });
+  // 🔄 Buscar actualizaciones al iniciar
+  autoUpdater.checkForUpdates();
 });
 
-// Manejar solicitud de versión
-ipcMain.handle("get-app-version", () => {
-    return app.getVersion();
+// 📥 Cuando hay actualización disponible
+autoUpdater.on("update-available", (info) => {
+  console.log("Actualización disponible:", info.version);
 });
 
-// Función para verificar si la URL está accesible
-function checkAndLoadURL(window, url, fallback) {
-    http.get(url, (res) => {
-        if (res.statusCode === 200) {
-            window.loadURL(url); // Si la URL es accesible, cargarla
-        } else {
-            window.loadFile(fallback); // Si no, cargar la página 404.html
-        }
-    }).on('error', (err) => {
-        window.loadFile(fallback); // Si ocurre un error, cargar 404.html
-    });
-}
+// 📦 Progreso de descarga (opcional)
+autoUpdater.on("download-progress", (progress) => {
+  console.log(`Descargando: ${Math.round(progress.percent)}%`);
+});
+
+// ✅ Cuando termina la descarga → instalar automáticamente
+autoUpdater.on("update-downloaded", () => {
+  console.log("Actualización descargada. Instalando...");
+  setTimeout(() => {
+    autoUpdater.quitAndInstall(false, true);
+  }, 1000);
+});
+
+// ❌ Error
+autoUpdater.on("error", (err) => {
+  console.error("Error en el autoUpdater:", err);
+});
+
+ipcMain.handle("get-app-version", () => app.getVersion());
