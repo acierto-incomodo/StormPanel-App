@@ -6,6 +6,7 @@ const {
   Menu,
   session,
   shell,
+  Notification,
 } = require("electron");
 const { autoUpdater } = require("electron-updater");
 const path = require("path");
@@ -13,8 +14,19 @@ const path = require("path");
 let mainWindow;
 
 // ⚙️ CONFIGURACIÓN DEL AUTO-UPDATER
-autoUpdater.autoDownload = true; // descargar automáticamente
-autoUpdater.autoInstallOnAppQuit = true; // instalar al cerrar
+autoUpdater.autoDownload = true;
+autoUpdater.autoInstallOnAppQuit = true;
+
+// 🔔 notificaciones
+function mostrarNotificacion(titulo, mensaje) {
+  if (Notification.isSupported()) {
+    new Notification({
+      title: titulo,
+      body: mensaje,
+      icon: path.join(__dirname, "icon.png"),
+    }).show();
+  }
+}
 
 // Método para comprobar actualizaciones manualmente
 function comprobarActualizaciones() {
@@ -132,7 +144,6 @@ app.whenReady().then(() => {
   mainWindow.maximize();
   mainWindow.setIcon(path.join(__dirname, "icon.png"));
 
-  // Menú contextual
   const contextMenu = Menu.buildFromTemplate([
     { label: "Copiar", role: "copy" },
     { label: "Pegar", role: "paste" },
@@ -159,25 +170,38 @@ app.whenReady().then(() => {
   autoUpdater.checkForUpdates();
 });
 
-// 📥 Cuando hay actualización disponible
+// 📥 actualización disponible
 autoUpdater.on("update-available", (info) => {
   console.log("Actualización disponible:", info.version);
+  mostrarNotificacion("Actualización disponible", "Descargando actualización...");
 });
 
-// 📦 Progreso de descarga (opcional)
+// 📊 progreso de descarga
 autoUpdater.on("download-progress", (progress) => {
-  console.log(`Descargando: ${Math.round(progress.percent)}%`);
+  const percent = Math.round(progress.percent);
+
+  console.log(`Descargando: ${percent}%`);
+
+  if (mainWindow) {
+    mainWindow.setProgressBar(progress.percent / 100);
+    mainWindow.webContents.send("update-progress", percent);
+  }
 });
 
-// ✅ Cuando termina la descarga → instalar automáticamente
+// ✅ descarga completada
 autoUpdater.on("update-downloaded", () => {
   console.log("Actualización descargada. Instalando...");
+
+  if (mainWindow) mainWindow.setProgressBar(-1);
+
+  mostrarNotificacion("Actualización lista", "Instalando actualización...");
+
   setTimeout(() => {
     autoUpdater.quitAndInstall(false, true);
-  }, 1000);
+  }, 1200);
 });
 
-// ❌ Error
+// ❌ error
 autoUpdater.on("error", (err) => {
   console.error("Error en el autoUpdater:", err);
 });
