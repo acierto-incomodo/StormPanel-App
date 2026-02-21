@@ -5,7 +5,7 @@ if (Test-Path -Path "dist") {
 
 npm i
 
-npm run dist
+npm run build
 
 # Reemplazar espacios por guiones en los nombres de archivo .exe y .blockmap generados
 Get-ChildItem -Path . -Recurse -Include '*.exe', '*.blockmap' | ForEach-Object {

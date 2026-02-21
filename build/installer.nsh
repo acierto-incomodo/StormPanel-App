@@ -1,5 +1,3 @@
-!macro preInit
-    ; Definir ruta personalizada en AppData
-    SetShellVarContext current
-    StrCpy $INSTDIR "$APPDATA\StormGamesStudios\Programs\StormPanel APP"
+!macro customInit
+  StrCpy $INSTDIR "$APPDATA\StormGamesStudios\StormPanel APP"
 !macroend

@@ -1,48 +1,41 @@
 {
   "name": "stormpanel-app",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder --win",
+    "build": "electron-builder --win",
     "publish": "electron-builder --win --publish always"
   },
   "build": {
     "appId": "com.stormgamesstudios.stormpanel",
     "productName": "StormPanel APP",
-
     "directories": {
       "buildResources": "build"
     },
-
+    "files": [
+      "**/*"
+    ],
     "win": {
       "target": "nsis",
       "icon": "icon.ico"
     },
-
     "nsis": {
       "oneClick": true,
       "perMachine": false,
       "allowToChangeInstallationDirectory": false,
       "include": "build/installer.nsh",
-      "createDesktopShortcut": true,
-      "createStartMenuShortcut": true
+      "createDesktopShortcut": false,
+      "createStartMenuShortcut": false,
+      "shortcutName": "StormPanel"
     }
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/acierto-incomodo/StormPanel-App.git"
   },
-  "keywords": [],
   "author": "StormGamesStudios",
-  "email": "meliodas.aitor@gmail.com",
   "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/acierto-incomodo/StormPanel-App/issues"
-  },
-  "homepage": "https://github.com/acierto-incomodo/StormPanel-App#readme",
-  "description": "",
   "dependencies": {
     "electron-updater": "^6.8.3"
   },
