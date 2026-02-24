@@ -12,10 +12,23 @@ const { autoUpdater } = require("electron-updater");
 const path = require("path");
 
 let mainWindow;
+const gotTheLock = app.requestSingleInstanceLock();
+
+if (!gotTheLock) {
+  app.quit();
+} else {
+  app.on("second-instance", () => {
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore();
+      mainWindow.focus();
+    }
+  });
+}
 
 // ⚙️ CONFIGURACIÓN DEL AUTO-UPDATER
 autoUpdater.autoDownload = true;
 autoUpdater.autoInstallOnAppQuit = true;
+autoUpdater.allowDowngrade = true;
 
 // 🔔 notificaciones
 function mostrarNotificacion(titulo, mensaje) {
@@ -83,6 +96,10 @@ function configurarMenu() {
           label: "Error de Actualización",
           click: () => mainWindow.loadFile("error_actualizacion.html"),
         },
+        {
+          label: "Comprobar Actualizaciones",
+          click: () => mainWindow.loadFile("update.html"),
+        },
       ],
     },
     {
@@ -126,49 +143,51 @@ function configurarMenu() {
   Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate));
 }
 
-app.whenReady().then(() => {
-  mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    minWidth: 800,
-    minHeight: 600,
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: true,
-      preload: path.join(__dirname, "preload.js"),
-      enableRemoteModule: false,
-    },
+if (gotTheLock) {
+  app.whenReady().then(() => {
+    mainWindow = new BrowserWindow({
+      width: 800,
+      height: 600,
+      minWidth: 800,
+      minHeight: 600,
+      webPreferences: {
+        nodeIntegration: true,
+        contextIsolation: true,
+        preload: path.join(__dirname, "preload.js"),
+        enableRemoteModule: false,
+      },
+    });
+
+    mainWindow.loadFile("index.html");
+    mainWindow.maximize();
+    mainWindow.setIcon(path.join(__dirname, "icon.png"));
+
+    const contextMenu = Menu.buildFromTemplate([
+      { label: "Copiar", role: "copy" },
+      { label: "Pegar", role: "paste" },
+      { type: "separator" },
+      { label: "Recargar", click: () => mainWindow.reload() },
+      {
+        label: "Recargar (Forzoso)",
+        click: () => mainWindow.webContents.reloadIgnoringCache(),
+      },
+      { type: "separator" },
+      {
+        label: "Abrir DevTools",
+        click: () => mainWindow.webContents.openDevTools(),
+      },
+    ]);
+
+    mainWindow.webContents.on("context-menu", (event, params) => {
+      contextMenu.popup(mainWindow, params.x, params.y);
+    });
+
+    configurarMenu();
+
+    // 🔄 Buscar actualizaciones al iniciar
+    autoUpdater.checkForUpdates();
   });
-
-  mainWindow.loadFile("index.html");
-  mainWindow.maximize();
-  mainWindow.setIcon(path.join(__dirname, "icon.png"));
-
-  const contextMenu = Menu.buildFromTemplate([
-    { label: "Copiar", role: "copy" },
-    { label: "Pegar", role: "paste" },
-    { type: "separator" },
-    { label: "Recargar", click: () => mainWindow.reload() },
-    {
-      label: "Recargar (Forzoso)",
-      click: () => mainWindow.webContents.reloadIgnoringCache(),
-    },
-    { type: "separator" },
-    {
-      label: "Abrir DevTools",
-      click: () => mainWindow.webContents.openDevTools(),
-    },
-  ]);
-
-  mainWindow.webContents.on("context-menu", (event, params) => {
-    contextMenu.popup(mainWindow, params.x, params.y);
-  });
-
-  configurarMenu();
-
-  // 🔄 Buscar actualizaciones al iniciar
-  autoUpdater.checkForUpdates();
-});
+}
 
 // 📥 actualización disponible
 autoUpdater.on("update-available", (info) => {
@@ -207,3 +226,12 @@ autoUpdater.on("error", (err) => {
 });
 
 ipcMain.handle("get-app-version", () => app.getVersion());
+ipcMain.handle("check-for-updates", async () => {
+  try {
+    await autoUpdater.checkForUpdates();
+    return { ok: true };
+  } catch (error) {
+    console.error("Error al comprobar actualizaciones:", error);
+    return { ok: false, error: String(error) };
+  }
+});

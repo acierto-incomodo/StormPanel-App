@@ -1,11 +1,13 @@
 {
   "name": "stormpanel-app",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder --win",
-    "publish": "electron-builder --win --publish always"
+    "publish": "electron-builder --win --publish always",
+    "build:linux": "electron-builder --linux AppImage deb",
+    "publish:linux": "electron-builder --linux AppImage deb --publish always"
   },
   "build": {
     "appId": "com.stormgamesstudios.stormpanel",
@@ -20,6 +22,21 @@
       "target": "nsis",
       "icon": "icon.ico"
     },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "icon.png",
+      "category": "Utility"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "acierto-incomodo",
+        "repo": "StormPanel-App"
+      }
+    ],
     "nsis": {
       "oneClick": true,
       "perMachine": false,
