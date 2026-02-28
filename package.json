@@ -1,6 +1,6 @@
 {
   "name": "stormpanel-app",
-  "version": "1.2.6",
+  "version": "1.2.8",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -45,7 +45,7 @@
       "include": "build/installer.nsh",
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "StormPanel"
+      "shortcutName": "StormPanel APP"
     }
   },
   "repository": {
@@ -55,6 +55,7 @@
   "author": "StormGamesStudios <meliodas.aitor@gmail.com>",
   "license": "Apache-2.0",
   "dependencies": {
+    "@material/web": "^2.4.1",
     "electron-updater": "^6.8.3"
   },
   "devDependencies": {

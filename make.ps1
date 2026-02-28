@@ -1,5 +1,6 @@
 # Eliminar artefactos de Windows anteriores
-Remove-Item -Path "latest.yml", "*.exe", "*.blockmap" -Force -ErrorAction SilentlyContinue
+Remove-Item -Path "dist\latest.yml", "dist\*.exe", "dist\*.blockmap" -Force -ErrorAction SilentlyContinue
+Remove-Item -Path "dist\win-unpacked" -Recurse -Force -ErrorAction SilentlyContinue
 
 npm i
 if ($LASTEXITCODE -ne 0) {

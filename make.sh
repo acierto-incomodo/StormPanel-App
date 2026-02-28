@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 echo "[1/4] Eliminando artefactos de Linux anteriores"
 # Eliminar artefactos de Linux anteriores
-rm -f latest-linux.yml *.deb *.AppImage
+rm -f dist/latest-linux.yml dist/*.deb dist/*.AppImage
+rm -rf dist/linux-unpacked
 
 echo "[2/4] Preparando dependencias"
 set -euo pipefail
