@@ -1,3 +1,3 @@
 !macro customInit
-  StrCpy $INSTDIR "$APPDATA\StormGamesStudios\StormPanel APP"
+  StrCpy $INSTDIR "$APPDATA\StormGamesStudios\Programs\StormPanel APP"
 !macroend

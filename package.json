@@ -1,6 +1,6 @@
 {
   "name": "stormpanel-app",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
@@ -11,6 +11,7 @@
   },
   "build": {
     "appId": "com.stormgamesstudios.stormpanel",
+    "artifactName": "StormPanel-APP-Setup-${version}.${ext}",
     "productName": "StormPanel APP",
     "directories": {
       "buildResources": "build"
@@ -51,7 +52,7 @@
     "type": "git",
     "url": "https://github.com/acierto-incomodo/StormPanel-App.git"
   },
-  "author": "StormGamesStudios",
+  "author": "StormGamesStudios <meliodas.aitor@gmail.com>",
   "license": "Apache-2.0",
   "dependencies": {
     "electron-updater": "^6.8.3"

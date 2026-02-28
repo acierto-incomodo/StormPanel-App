@@ -1,3 +1,6 @@
+# Eliminar artefactos de Windows anteriores
+Remove-Item -Path "latest.yml", "*.exe", "*.blockmap" -Force -ErrorAction SilentlyContinue
+
 npm i
 if ($LASTEXITCODE -ne 0) {
     Write-Error "npm i falló. Abortando."
