@@ -63,6 +63,10 @@ function configurarMenu() {
           click: () => mainWindow.loadURL("http://myjoncraft.mooo.com:23333"),
         },
         {
+          label: "Webmin Online",
+          click: () => mainWindow.loadURL("https://myjoncraft.mooo.com:10000"),
+        },
+        {
           label: "Status",
           click: () => {
             session.defaultSession.clearCache().then(() => {
