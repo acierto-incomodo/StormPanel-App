@@ -3,48 +3,110 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>StormPanel</title>
     <meta
       name="description"
-      content="StormPanel es una aplicación web que te permite visualizar el estado del tiempo en tiempo real."
+      content="Accede a StormPanel, los servicios y las herramientas de StormGamesStudios."
     />
+    <title>StormPanel | Inicio</title>
     <link rel="icon" href="icon.ico" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header>
-      <h1>StormPanel</h1>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="index.html" aria-label="StormPanel, inicio">
+          <span class="brand-mark" aria-hidden="true">SP</span>
+          <span class="brand-name">StormPanel<small>DESKTOP</small></span>
+        </a>
+        <nav class="site-nav" aria-label="Navegación principal">
+          <a href="index.html" aria-current="page">Inicio</a>
+          <a href="documentacion.html">Documentación</a>
+          <a href="soporte.html">Soporte</a>
+          <a href="acerca.html">Acerca de</a>
+        </nav>
+      </div>
     </header>
 
-    <!-- 🔄 barra de progreso -->
-    <div id="updateBarContainer" style="display:none;width:100%;height:6px;background:#222;">
-      <div id="updateBar" style="width:0%;height:100%;background:#00ffcc;"></div>
+    <div
+      id="updateBarContainer"
+      class="update-progress"
+      role="progressbar"
+      aria-label="Descarga de actualización"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="0"
+      hidden
+    >
+      <div id="updateBar" class="update-progress__bar"></div>
     </div>
 
-    <main>
-      <ul class="nav-list">
-        <li><a href="http://myjoncraft.mooo.com:23333">StormPanel</a></li>
-        <li><a href="https://myjoncraft.mooo.com:10000">Webmin</a></li>
-        <li><a href="https://stats.uptimerobot.com/Kj5fTWCONH">Status</a></li>
+    <main class="page-content page-content--wide">
+      <section class="page-intro">
+        <p class="eyebrow">Tu espacio de control</p>
+        <h1>Todo StormPanel.<br /><span class="text-gradient">En un solo lugar.</span></h1>
+        <p class="lead">
+          Acceso rápido a tus servicios, estado de la plataforma y herramientas
+          de la aplicación.
+        </p>
+      </section>
+
+      <ul class="nav-list" aria-label="Servicios y herramientas">
         <li>
-          <a href="https://myjoncraft-sgs-web.vercel.app">MyJonCraft SGS Web</a>
+          <a class="resource-card resource-card--featured" href="http://myjoncraft.mooo.com:23333">
+            <span class="card-label">Panel principal</span>
+            <h2>StormPanel</h2>
+            <p>Abre el panel de gestión y monitorización del servidor.</p>
+          </a>
         </li>
         <li>
-          <a href="https://stormgamesstudios.vercel.app">StormGamesStudios</a>
+          <a class="resource-card" href="https://myjoncraft.mooo.com:10000">
+            <span class="card-label">Administración</span>
+            <h2>Webmin</h2>
+            <p>Accede a las herramientas de administración del sistema.</p>
+          </a>
         </li>
-        <li><a href="update.html">Comprobar Actualizaciones</a></li>
-        <li><a href="error_actualizacion.html">Error de Actualización</a></li>
+        <li>
+          <a class="resource-card" href="https://stats.uptimerobot.com/Kj5fTWCONH">
+            <span class="card-label">Disponibilidad</span>
+            <h2>Estado del servicio</h2>
+            <p>Consulta el estado y la disponibilidad de los servicios.</p>
+          </a>
+        </li>
+        <li>
+          <a class="resource-card" href="https://myjoncraft-sgs-web.vercel.app">
+            <span class="card-label">Proyecto</span>
+            <h2>MyJonCraft SGS</h2>
+            <p>Visita la web de MyJonCraft SGS.</p>
+          </a>
+        </li>
+        <li>
+          <a class="resource-card" href="https://stormgamesstudios.vercel.app">
+            <span class="card-label">Studio</span>
+            <h2>StormGamesStudios</h2>
+            <p>Descubre más sobre StormGamesStudios.</p>
+          </a>
+        </li>
+        <li>
+          <a class="resource-card" href="update.html">
+            <span class="card-label">Aplicación</span>
+            <h2>Actualizaciones</h2>
+            <p>Comprueba si hay una nueva versión disponible.</p>
+          </a>
+        </li>
+        <li>
+          <a class="resource-card" href="error_actualizacion.html">
+            <span class="card-label">Ayuda</span>
+            <h2>Problemas al actualizar</h2>
+            <p>Encuentra los pasos para recuperar una actualización.</p>
+          </a>
+        </li>
       </ul>
     </main>
 
-    <footer>
-      <p>
-        Copyright &copy; 2026 StormGamesStudios | StormPanel App. Todos los
-        derechos reservados.
-      </p>
-      <p>Versión actual: <span id="app-version">Cargando...</span></p>
+    <footer class="site-footer">
+      <p>Copyright &copy; 2026 StormGamesStudios · StormPanel App</p>
+      <p class="site-footer__version">Versión <span id="app-version">Cargando...</span></p>
     </footer>
-
     <script src="renderer.js"></script>
   </body>
 </html>

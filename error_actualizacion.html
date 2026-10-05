@@ -3,35 +3,53 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Error de Actualización - StormPanel App</title>
+    <title>Ayuda con actualizaciones | StormPanel</title>
     <link rel="stylesheet" href="styles.css" />
-    <!-- Asegúrate de tener un archivo CSS -->
   </head>
   <body>
-    <div class="container">
-      <h1>Soporte de StormPanel App en actualizaciones</h1>
-      <p>
-        En el caso de tener un problema con instalar una actualización revise lo
-        siguiente:
-      </p>
-      <br />
-      <h2>Error al descargar</h2>
-      <p>
-        En el caso de que la siguiente versión no se descarge, haga clic en el
-        siguiente boton y descarge la versión; despues haga la instalación y
-        recivira la actualización correcta sin problemas:
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="index.html" aria-label="StormPanel, inicio">
+          <span class="brand-mark" aria-hidden="true">SP</span>
+          <span class="brand-name">StormPanel<small>DESKTOP</small></span>
+        </a>
+        <nav class="site-nav" aria-label="Navegación principal">
+          <a href="index.html">Inicio</a>
+          <a href="documentacion.html">Documentación</a>
+          <a href="soporte.html">Soporte</a>
+          <a href="acerca.html">Acerca de</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-content">
+      <section class="page-intro">
+        <p class="eyebrow">Solución de problemas</p>
+        <h1>¿Problemas al <span class="text-gradient">actualizar?</span></h1>
+        <p class="lead">
+          Si la descarga o instalación de una actualización falla, instala la
+          versión más reciente desde GitHub.
+        </p>
+      </section>
+
+      <section class="content-card">
+        <h2>Instala la versión más reciente</h2>
+        <p>
+          Descarga la última versión disponible y ejecuta el instalador. Al
+          terminar, vuelve a abrir StormPanel App.
+        </p>
         <a
+          class="button"
           href="https://github.com/acierto-incomodo/StormPanel-App/releases/latest"
-          >Descargar</a
         >
-      </p>
-    </div>
-    <footer>
-      <p>
-        Copyright &copy; 2026 StormGamesStudios | StormPanel App. Todos los
-        derechos reservados.
-      </p>
-      <p>Versión actual: <span id="app-version">Cargando...</span></p>
+          Ir a las descargas de GitHub
+        </a>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Copyright &copy; 2026 StormGamesStudios · StormPanel App</p>
+      <p class="site-footer__version">Versión <span id="app-version">Cargando...</span></p>
     </footer>
     <script src="renderer.js"></script>
   </body>

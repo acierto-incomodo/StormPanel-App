@@ -3,38 +3,56 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Soporte - StormPanel App</title>
+    <title>Soporte | StormPanel</title>
     <link rel="stylesheet" href="styles.css" />
-    <!-- Asegúrate de tener un archivo CSS -->
   </head>
   <body>
-    <div class="container">
-      <h1>Soporte de StormPanel App</h1>
-      <p>
-        Si tienes problemas o preguntas sobre StormPanel App, aquí encontrarás
-        opciones para obtener ayuda.
-      </p>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="index.html" aria-label="StormPanel, inicio">
+          <span class="brand-mark" aria-hidden="true">SP</span>
+          <span class="brand-name">StormPanel<small>DESKTOP</small></span>
+        </a>
+        <nav class="site-nav" aria-label="Navegación principal">
+          <a href="index.html">Inicio</a>
+          <a href="documentacion.html">Documentación</a>
+          <a href="soporte.html" aria-current="page">Soporte</a>
+          <a href="acerca.html">Acerca de</a>
+        </nav>
+      </div>
+    </header>
 
-      <h2>Contacto</h2>
-      <p>
-        Puedes contactarnos en:
-        <a href="discord.com">creper1125463 (discord.com)</a>
-      </p>
+    <main class="page-content">
+      <section class="page-intro">
+        <p class="eyebrow">Estamos aquí para ayudarte</p>
+        <h1>Centro de <span class="text-gradient">soporte</span></h1>
+        <p class="lead">
+          Si tienes problemas o preguntas sobre StormPanel App, aquí encontrarás
+          opciones para obtener ayuda.
+        </p>
+      </section>
 
-      <h2>Reportar un Problema</h2>
-      <p>
-        Si has encontrado un error, repórtalo en nuestro
-        <a href="https://github.com/acierto-incomodo/StormPanel-App/issues"
-          >repositorio de GitHub</a
-        >.
-      </p>
-    </div>
-    <footer>
-      <p>
-        Copyright &copy; 2026 StormGamesStudios | StormPanel App. Todos los
-        derechos reservados.
-      </p>
-      <p>Versión actual: <span id="app-version">Cargando...</span></p>
+      <section class="content-card">
+        <h2>Contacto</h2>
+        <p>
+          Puedes contactar con nosotros a través de
+          <a href="https://discord.com">creper1125463 en Discord</a>.
+        </p>
+
+        <h2>Reportar un problema</h2>
+        <p>
+          Si has encontrado un error, compártelo en nuestro
+          <a href="https://github.com/acierto-incomodo/StormPanel-App/issues">
+            repositorio de GitHub
+          </a>
+          para que podamos investigarlo.
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Copyright &copy; 2026 StormGamesStudios · StormPanel App</p>
+      <p class="site-footer__version">Versión <span id="app-version">Cargando...</span></p>
     </footer>
     <script src="renderer.js"></script>
   </body>

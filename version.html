@@ -3,23 +3,49 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Versión - StormPanel App</title>
+    <title>Versión | StormPanel</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header>
-      <h1>StormPanel</h1>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="index.html" aria-label="StormPanel, inicio">
+          <span class="brand-mark" aria-hidden="true">SP</span>
+          <span class="brand-name">StormPanel<small>DESKTOP</small></span>
+        </a>
+        <nav class="site-nav" aria-label="Navegación principal">
+          <a href="index.html">Inicio</a>
+          <a href="documentacion.html">Documentación</a>
+          <a href="soporte.html">Soporte</a>
+          <a href="acerca.html">Acerca de</a>
+        </nav>
+      </div>
     </header>
-    <main>
-      <p>Versión actual: <span id="app-version-dos">Cargando...</span></p>
-      <p>Ultima versión: {$Ult-Act-Detect}</p>
+
+    <main class="page-content">
+      <section class="page-intro">
+        <p class="eyebrow">Información de la aplicación</p>
+        <h1>Versión de <span class="text-gradient">StormPanel</span></h1>
+        <p class="lead">Consulta la versión instalada y accede a las novedades más recientes.</p>
+      </section>
+
+      <section class="content-card">
+        <div class="version-panel">
+          <p>Versión instalada</p>
+          <span class="version-number" id="app-version-dos">Cargando...</span>
+        </div>
+        <p>
+          Para consultar la última versión publicada, visita
+          <a href="https://github.com/acierto-incomodo/StormPanel-App/releases/latest">
+            las versiones de StormPanel en GitHub
+          </a>.
+        </p>
+      </section>
     </main>
-    <footer>
-      <p>
-        Copyright &copy; 2026 StormGamesStudios | StormPanel App. Todos los
-        derechos reservados.
-      </p>
-      <p>Versión actual: <span id="app-version">Cargando...</span></p>
+
+    <footer class="site-footer">
+      <p>Copyright &copy; 2026 StormGamesStudios · StormPanel App</p>
+      <p class="site-footer__version">Versión <span id="app-version">Cargando...</span></p>
     </footer>
     <script src="renderer.js"></script>
   </body>

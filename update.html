@@ -3,39 +3,66 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Actualizar - StormPanel App</title>
+    <title>Actualizaciones | StormPanel</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header>
-      <h1>Comprobar Actualizaciones</h1>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="index.html" aria-label="StormPanel, inicio">
+          <span class="brand-mark" aria-hidden="true">SP</span>
+          <span class="brand-name">StormPanel<small>DESKTOP</small></span>
+        </a>
+        <nav class="site-nav" aria-label="Navegación principal">
+          <a href="index.html">Inicio</a>
+          <a href="documentacion.html">Documentación</a>
+          <a href="soporte.html">Soporte</a>
+          <a href="acerca.html">Acerca de</a>
+        </nav>
+      </div>
     </header>
 
     <div
       id="updateBarContainer"
-      style="display:none;width:100%;height:6px;background:#222;"
+      class="update-progress"
+      role="progressbar"
+      aria-label="Descarga de actualización"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="0"
+      hidden
     >
-      <div id="updateBar" style="width:0%;height:100%;background:#00ffcc;"></div>
+      <div id="updateBar" class="update-progress__bar"></div>
     </div>
 
-    <main>
-      <div class="about-section">
-        <p>Versión actual: <span id="app-version-dos">Cargando...</span></p>
-        <button id="check-updates-btn" style="padding:10px 16px;cursor:pointer;">
+    <main class="page-content">
+      <section class="page-intro">
+        <p class="eyebrow">Siempre al día</p>
+        <h1>Actualizaciones de <span class="text-gradient">StormPanel</span></h1>
+        <p class="lead">
+          Comprueba si hay una versión nueva. Si está disponible, la aplicación
+          iniciará la descarga automáticamente.
+        </p>
+      </section>
+
+      <section class="content-card">
+        <div class="version-panel">
+          <p>Versión instalada</p>
+          <span class="version-number" id="app-version-dos">Cargando...</span>
+        </div>
+        <button id="check-updates-btn" class="button" type="button">
           Comprobar actualizaciones
         </button>
-        <p id="check-updates-status">Presiona el botón para buscar updates.</p>
-      </div>
+        <p id="check-updates-status" class="status-message" aria-live="polite">
+          Selecciona el botón para buscar actualizaciones.
+        </p>
+      </section>
     </main>
 
-    <footer>
-      <p>
-        Copyright &copy; 2026 StormGamesStudios | StormPanel App. Todos los
-        derechos reservados.
-      </p>
-      <p>Versión actual: <span id="app-version">Cargando...</span></p>
+    <footer class="site-footer">
+      <p>Copyright &copy; 2026 StormGamesStudios · StormPanel App</p>
+      <p class="site-footer__version">Versión <span id="app-version">Cargando...</span></p>
     </footer>
-
     <script src="renderer.js"></script>
   </body>
 </html>
