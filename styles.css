@@ -113,17 +113,11 @@ button {
 }
 
 .brand-mark {
-  display: grid;
+  display: block;
   width: 38px;
   height: 38px;
-  place-items: center;
-  border: 1px solid rgba(99, 230, 207, 0.35);
-  border-radius: 12px;
-  background: linear-gradient(145deg, rgba(99, 230, 207, 0.2), rgba(169, 148, 255, 0.16));
-  box-shadow: inset 0 1px rgba(255, 255, 255, 0.13);
-  color: var(--accent);
-  font-size: 13px;
-  letter-spacing: -0.04em;
+  object-fit: contain;
+  border-radius: 5px;
 }
 
 .brand-name {
