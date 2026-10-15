@@ -1,11 +1,11 @@
 {
   "name": "stormpanel-app",
-  "version": "1.2.11",
+  "version": "1.2.12",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder --win",
-    "publish": "electron-builder --win --publish always",
+    "build:win": "electron-builder --win",
+    "publish:win": "electron-builder --win --publish always",
     "build:linux": "electron-builder --linux AppImage deb",
     "publish:linux": "electron-builder --linux AppImage deb --publish always"
   },
@@ -59,7 +59,7 @@
     "electron-updater": "^6.8.9"
   },
   "devDependencies": {
-    "electron": "^44.4.5",
+    "electron": "^44.7.2",
     "electron-builder": "^26.15.3"
   },
   "allowScripts": {
