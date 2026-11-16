@@ -2,6 +2,7 @@
   "name": "stormpanel-app",
   "version": "1.2.12",
   "main": "main.js",
+  "desktopName": "com.stormgamesstudios.stormpanel",
   "scripts": {
     "start": "electron .",
     "build:win": "electron-builder --win",
