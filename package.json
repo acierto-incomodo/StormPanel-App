@@ -21,7 +21,7 @@
       "**/*"
     ],
     "win": {
-      "target": "nsis",
+      "target": ["nsis", "appx"],
       "icon": "icon.ico"
     },
     "linux": {
@@ -47,6 +47,20 @@
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
       "shortcutName": "StormPanel APP"
+    },
+    "appx": {
+      "identityName": "StormGamesStudios.StormPanelAPP",
+      "publisher": "",
+      "publisherDisplayName": "StormGamesStudios",
+      "displayName": "StormPanel APP",
+      "capabilities": [
+        "runFullTrust"
+      ],
+      "backgroundColor": "#121212",
+      "languages": [
+        "es-ES"
+      ],
+      "showNameOnTiles": true
     }
   },
   "repository": {
