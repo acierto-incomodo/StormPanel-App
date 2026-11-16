@@ -77,3 +77,69 @@ if (window.electronAPI?.onUpdateProgress) {
     }
   });
 }
+
+const serviceLinkFields = {
+  stormPanel: document.getElementById("stormpanel-url"),
+  webmin: document.getElementById("webmin-url"),
+  status: document.getElementById("service-status-url"),
+};
+
+async function loadServiceLinks() {
+  if (!window.electronAPI?.getServiceLinks) return;
+
+  try {
+    const links = await window.electronAPI.getServiceLinks();
+    const homeLinks = {
+      stormPanel: document.getElementById("stormpanel-link"),
+      webmin: document.getElementById("webmin-link"),
+      status: document.getElementById("service-status-link"),
+    };
+
+    Object.keys(links).forEach((key) => {
+      if (homeLinks[key]) homeLinks[key].href = links[key];
+      if (serviceLinkFields[key]) serviceLinkFields[key].value = links[key];
+    });
+  } catch (error) {
+    console.error("Error al cargar los enlaces configurados:", error);
+    const status = document.getElementById("service-links-status");
+    if (status) {
+      status.dataset.state = "error";
+      status.textContent = "No se pudieron cargar los enlaces configurados.";
+    }
+  }
+}
+
+loadServiceLinks();
+
+const serviceLinksForm = document.getElementById("service-links-form");
+if (serviceLinksForm && window.electronAPI?.saveServiceLinks) {
+  serviceLinksForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const submitButton = serviceLinksForm.querySelector('button[type="submit"]');
+    const status = document.getElementById("service-links-status");
+    const links = Object.fromEntries(
+      Object.entries(serviceLinkFields).map(([key, field]) => [key, field.value.trim()])
+    );
+
+    submitButton.disabled = true;
+    status.dataset.state = "loading";
+    status.textContent = "Guardando configuración...";
+
+    try {
+      const result = await window.electronAPI.saveServiceLinks(links);
+      if (!result?.ok) throw new Error(result?.error || "No se pudieron guardar los enlaces.");
+      status.dataset.state = "success";
+      status.textContent = "Enlaces guardados correctamente.";
+    } catch (error) {
+      console.error("Error al guardar los enlaces configurados:", error);
+      status.dataset.state = "error";
+      status.textContent = error.message || "No se pudieron guardar los enlaces.";
+    } finally {
+      submitButton.disabled = false;
+    }
+  });
+} else if (serviceLinksForm) {
+  serviceLinksForm.querySelector('button[type="submit"]').disabled = true;
+  document.getElementById("service-links-status").textContent =
+    "La configuración solo está disponible en la app de escritorio.";
+}

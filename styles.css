@@ -413,6 +413,39 @@ h3 {
   opacity: 0.68;
 }
 
+.settings-form {
+  display: grid;
+  gap: 20px;
+}
+
+.settings-field {
+  display: grid;
+  gap: 8px;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.settings-field input {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 13px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: rgba(3, 10, 18, 0.55);
+  color: var(--text);
+  font: inherit;
+}
+
+.settings-field input:focus-visible {
+  outline: 3px solid rgba(99, 230, 207, 0.55);
+  outline-offset: 2px;
+}
+
+.status-message[data-state="success"] {
+  color: var(--accent);
+}
+
 .version-panel {
   display: flex;
   align-items: center;

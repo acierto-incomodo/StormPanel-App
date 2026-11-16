@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Configuración | StormPanel</title>
+    <link rel="icon" href="icon.ico" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="index.html" aria-label="StormPanel, inicio">
+          <img class="brand-mark" src="icon.ico" alt="" />
+          <span class="brand-name">StormPanel<small>DESKTOP</small></span>
+        </a>
+        <nav class="site-nav" aria-label="Navegación principal">
+          <a href="index.html">Inicio</a>
+          <a href="documentacion.html">Documentación</a>
+          <a href="soporte.html">Soporte</a>
+          <a href="acerca.html">Acerca de</a>
+          <a href="configuracion.html" aria-current="page">Configuración</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-content">
+      <section class="page-intro">
+        <p class="eyebrow">Personaliza tus accesos</p>
+        <h1>Configuración de <span class="text-gradient">enlaces</span></h1>
+        <p class="lead">
+          Define las direcciones de StormPanel, Webmin y el estado del servicio.
+          Se usarán en la portada y en el menú de la aplicación.
+        </p>
+      </section>
+
+      <form id="service-links-form" class="content-card settings-form">
+        <label class="settings-field" for="stormpanel-url">
+          StormPanel
+          <input
+            id="stormpanel-url"
+            name="stormPanel"
+            type="url"
+            autocomplete="url"
+            value="http://myjoncraft.mooo.com:23333"
+            required
+          />
+        </label>
+        <label class="settings-field" for="webmin-url">
+          Webmin
+          <input
+            id="webmin-url"
+            name="webmin"
+            type="url"
+            autocomplete="url"
+            value="https://myjoncraft.mooo.com:10000"
+            required
+          />
+        </label>
+        <label class="settings-field" for="service-status-url">
+          Estado del servicio
+          <input
+            id="service-status-url"
+            name="status"
+            type="url"
+            autocomplete="url"
+            value="https://stats.uptimerobot.com/Kj5fTWCONH"
+            required
+          />
+        </label>
+        <button class="button" type="submit">Guardar enlaces</button>
+        <p id="service-links-status" class="status-message" aria-live="polite">
+          Los enlaces actuales aparecen como valores predeterminados.
+        </p>
+      </form>
+    </main>
+
+    <footer class="site-footer">
+      <p>Copyright &copy; 2026 StormGamesStudios · StormPanel App</p>
+      <p class="site-footer__version">Versión <span id="app-version">Cargando...</span></p>
+    </footer>
+    <script src="renderer.js"></script>
+  </body>
+</html>

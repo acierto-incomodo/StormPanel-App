@@ -10,9 +10,52 @@ const {
 } = require("electron");
 const { autoUpdater } = require("electron-updater");
 const path = require("path");
+const fs = require("fs").promises;
 
 let mainWindow;
+const defaultServiceLinks = {
+  stormPanel: "http://myjoncraft.mooo.com:23333",
+  webmin: "https://myjoncraft.mooo.com:10000",
+  status: "https://stats.uptimerobot.com/Kj5fTWCONH",
+};
+let serviceLinks = { ...defaultServiceLinks };
 const gotTheLock = app.requestSingleInstanceLock();
+
+function validateServiceLinks(links) {
+  const validatedLinks = {};
+
+  for (const key of Object.keys(defaultServiceLinks)) {
+    if (typeof links?.[key] !== "string") {
+      throw new Error(`El enlace "${key}" no es válido.`);
+    }
+
+    let parsedUrl;
+    try {
+      parsedUrl = new URL(links[key]);
+    } catch {
+      throw new Error(`El enlace "${key}" no es una URL válida.`);
+    }
+
+    if (!["http:", "https:"].includes(parsedUrl.protocol)) {
+      throw new Error(`El enlace "${key}" debe usar HTTP o HTTPS.`);
+    }
+
+    validatedLinks[key] = parsedUrl.href;
+  }
+
+  return validatedLinks;
+}
+
+async function cargarEnlacesServicio() {
+  const settingsPath = path.join(app.getPath("userData"), "service-links.json");
+  try {
+    const savedSettings = await fs.readFile(settingsPath, "utf8");
+    serviceLinks = validateServiceLinks(JSON.parse(savedSettings));
+  } catch (error) {
+    if (error.code === "ENOENT") return;
+    console.error("No se pudieron cargar los enlaces configurados:", error);
+  }
+}
 
 if (!gotTheLock) {
   app.quit();
@@ -60,19 +103,23 @@ function configurarMenu() {
       submenu: [
         {
           label: "StormPanel Online",
-          click: () => mainWindow.loadURL("http://myjoncraft.mooo.com:23333"),
+          click: () => mainWindow.loadURL(serviceLinks.stormPanel),
         },
         {
           label: "Webmin Online",
-          click: () => mainWindow.loadURL("https://myjoncraft.mooo.com:10000"),
+          click: () => mainWindow.loadURL(serviceLinks.webmin),
         },
         {
           label: "Status",
           click: () => {
             session.defaultSession.clearCache().then(() => {
-              mainWindow.loadURL("https://stats.uptimerobot.com/Kj5fTWCONH");
+              mainWindow.loadURL(serviceLinks.status);
             });
           },
+        },
+        {
+          label: "Configuración",
+          click: () => mainWindow.loadFile("configuracion.html"),
         },
         { label: "Versión", click: () => mainWindow.loadFile("version.html") },
         {
@@ -148,7 +195,8 @@ function configurarMenu() {
 }
 
 if (gotTheLock) {
-  app.whenReady().then(() => {
+  app.whenReady().then(async () => {
+    await cargarEnlacesServicio();
     mainWindow = new BrowserWindow({
       width: 800,
       height: 600,
@@ -230,6 +278,19 @@ autoUpdater.on("error", (err) => {
 });
 
 ipcMain.handle("get-app-version", () => app.getVersion());
+ipcMain.handle("get-service-links", () => ({ ...serviceLinks }));
+ipcMain.handle("save-service-links", async (_, links) => {
+  try {
+    const validatedLinks = validateServiceLinks(links);
+    const settingsPath = path.join(app.getPath("userData"), "service-links.json");
+    await fs.writeFile(settingsPath, JSON.stringify(validatedLinks, null, 2), "utf8");
+    serviceLinks = validatedLinks;
+    return { ok: true };
+  } catch (error) {
+    console.error("Error al guardar los enlaces configurados:", error);
+    return { ok: false, error: error.message };
+  }
+});
 ipcMain.handle("check-for-updates", async () => {
   try {
     await autoUpdater.checkForUpdates();
